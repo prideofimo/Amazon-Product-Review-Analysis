@@ -133,4 +133,4 @@ Ejigha Godswill Oluchukwu
 Junior Data Analyst  
 RetailTech Insights  
 Email: [Godswillejigha16@gmail.com]  
-Portfolio: [your portfolio link]
+Portfolio: [[Ejigha Godswill Portfolio](https://github.com/prideofimo)]
