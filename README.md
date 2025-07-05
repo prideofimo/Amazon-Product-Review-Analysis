@@ -14,11 +14,12 @@ The dataset consists of product and customer engagement data scraped from Amazon
 - Total records: 1,465 rows
 - Total fields: 16 columns
 
-The analysis is based on the Excel file `Amazon_Product_Review_Analysis.xlsx`, which includes six sheets:
-- `original_data`: The raw data as received.
-- `cleaned_data`: Cleaned and prepared data with only relevant columns retained.
-- `structured_table`: Tabular data structured as a formal Excel table for pivot analysis.
-- `pivot_tables`: Pivot tables used to answer specific analysis questions.
+The analysis is based on the Excel file [ejigha Godswill Amazon product review analysis.xlsx](https://github.com/user-attachments/files/21071056/ejigha.Godswill.Amazon.product.review.analysis.xlsx) which includes five sheets
+
+- `original data`: The raw data as received.
+- `cleaned data`: Cleaned and prepared data with only relevant columns retained.
+- `structured table`: Tabular data structured as a formal Excel table for pivot analysis.
+- `pivot tables`: Pivot tables used to answer specific analysis questions.
 - `dashboard`: A dynamic Excel dashboard highlighting key metrics and findings.
 
 ## Data Cleaning and Preparation
@@ -50,6 +51,47 @@ The following business questions were addressed using pivot tables and calculate
 13. Which categories have products with the highest discounts?
 14. Which are the top 5 products in terms of both rating and number of reviews combined?
 
+## Codes / Formulas Used
+Some of the Excel formulas used to implement calculated columns and analysis are documented below.
+
+### Shortened Product Name
+Combines the first four words of the product name:
+```excel
+==TRIM(LEFT(B3,FIND("#",SUBSTITUTE(B3," ","#",4)&"#")-1))
+```
+### Price Range Bucket
+Assigns each product into one of three price segments:
+
+Less than ₹200
+Between ₹200 and ₹500
+Greater than ₹500
+``` excel
+=IF([@discounted_price]<200,"<₹200", IF(OR([@discounted_price]=200,[@discounted_price]<=500),"₹200-₹500",">₹500"))
+```
+
+### Discount Range Bucket
+Groups products by discount level:
+``` excel
+=IF(M2<=10%,"0 - 10%",IF(M2<=20%,"11 - 20%",IF(M2<=30%,"21 - 30%",IF(M2<=40%,"31 - 40%",IF(M2<=50%,"41 - 50%",IF(M2<=60%,"51 - 60%",IF(M2<=70%,"61 - 70%", IF(M2<=80%,"71 - 80%",IF(M2<=90%,"81 - 90%","91-100%")))))))))
+```
+
+### Total Potential Revenue
+Calculates potential revenue as actual price multiplied by number of ratings:
+``` excel
+=[@actual_price]*[@rating_Count]
+```
+
+### Top Product Score
+Ranks products by rating and number of reviews combined:
+``` excel
+=[@rating]+([@rating_count/1000)
+```
+### Discount Range Bucket
+to determine which products have a discount of 50% or more
+``` excel
+=IF([@discount_percentage]>=50%, "50% or more", "<50%")
+```
+
 ## Dashboard
 A dynamic Excel dashboard presents the most important metrics and findings. The dashboard includes:
 - Key performance indicators such as average discount and total potential revenue by category
@@ -58,7 +100,8 @@ A dynamic Excel dashboard presents the most important metrics and findings. The 
 - Product rating distribution
 - Category-level comparisons
 
-See the screenshots folder for examples.
+`Dashboard Sample`
+<img width="1286" alt="Amazon Dashboard Screenshot" src="https://github.com/user-attachments/assets/61cc4dcf-fa2e-4607-a374-618113bbb549" />
 
 ## Tools and Techniques
 - Microsoft Excel
@@ -76,11 +119,11 @@ See the screenshots folder for examples.
 - Some sub-categories exhibited extremely high average discounts, suggesting pricing strategy adjustments.
 
 ## Repository Contents
-- `Amazon_Product_Review_Analysis.xlsx`: Contains raw data, cleaned data, structured table, pivot tables, and dashboard.
-- `screenshots/`: PNG snapshots of the dashboard, pivot tables, and cleaned data.
+- [ejigha Godswill Amazon product review analysis.xlsx](https://github.com/user-attachments/files/21071056/ejigha.Godswill.Amazon.product.review.analysis.xlsx): Contains raw data, cleaned data, structured table, pivot tables, and dashboard.
+- `Screenshot`: PNG snapshots of the dashboard, pivot tables, and cleaned data.
 
 ## How to Explore
-1. Open `Amazon_Product_Review_Analysis.xlsx` in Microsoft Excel.
+1. Open `Ejigha Godswill Amazon Product Review Analysis.xlsx` in Microsoft Excel.
 2. Navigate to the `dashboard` sheet for a summary view.
 3. Review the `pivot_tables` sheet for detailed answers.
 4. Examine `cleaned_data` and `structured_table` for prepared data.
